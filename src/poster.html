@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The World in One Page — 18 November 2026</title>
+<style>
+  /* ============ BASE ============ */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1024px; height:1024px; overflow:hidden; }
+  body { background:#F6F1E7; color:#141414;
+    font-family:"Helvetica Neue", Arial, sans-serif; }
+  .page { width:1024px; height:1024px; padding:12px 20px 10px;
+    display:flex; flex-direction:column; gap:7px; }
+
+  /* ============ HEADER ============ */
+  header { display:flex; align-items:stretch; gap:14px; height:82px; flex:0 0 auto; }
+  .dateblock { background:#A6192E; color:#fff; width:118px; padding:6px 10px;
+    display:flex; flex-direction:column; justify-content:center; }
+  .dateblock .dow { font-size:11px; letter-spacing:2.5px; font-weight:700; }
+  .dateblock .day { font-family:Georgia, serif; font-size:40px; line-height:1;
+    font-weight:900; }
+  .dateblock .mon { font-size:12px; letter-spacing:2px; font-weight:700; }
+  .masthead { flex:1; text-align:center; border-top:4px solid #141414;
+    border-bottom:4px solid #141414; padding:6px 0 4px; }
+  .masthead h1 { font-family:Georgia, "Times New Roman", serif; font-size:44px;
+    line-height:1; font-weight:900; letter-spacing:1px; }
+  .masthead h1 em { font-style:normal; color:#A6192E; }
+  .masthead p { font-size:11px; letter-spacing:3.2px; font-weight:700;
+    margin-top:5px; color:#444; }
+  .edition { width:150px; text-align:right; font-size:11px; line-height:1.55;
+    font-weight:700; letter-spacing:1px; display:flex; flex-direction:column;
+    justify-content:center; }
+  .edition b { color:#A6192E; font-size:15px; letter-spacing:0; }
+
+  /* ============ SUBHEAD STRIP ============ */
+  .subhead { flex:0 0 auto; background:#141414; color:#F6F1E7; font-size:12.5px;
+    font-weight:700; letter-spacing:1.6px; text-align:center; padding:5px 0; }
+  .subhead span { color:#E8B93E; }
+
+  /* ============ HERO ROW ============ */
+  .heroes { flex:0 0 auto; display:flex; gap:10px; height:192px; }
+  .hero { flex:1; background:#fff; border:1.5px solid #141414; display:flex;
+    flex-direction:column; overflow:hidden; }
+  .hero svg { width:100%; height:78px; display:block; }
+  .hero .hbody { padding:6px 9px 7px; flex:1; display:flex; flex-direction:column; }
+  .hero h2 { font-family:Georgia, serif; font-size:16.5px; line-height:1.12;
+    font-weight:900; }
+  .hero p { font-size:11.5px; line-height:1.35; margin-top:4px; color:#333; flex:1; }
+  .hero .src { font-size:10px; font-weight:800; letter-spacing:1.2px; }
+  .cat { display:inline-block; font-size:9.5px; font-weight:800; letter-spacing:1.5px;
+    color:#fff; padding:2px 6px; margin-bottom:4px; align-self:flex-start; }
+
+  /* ============ NUMBERS STRIP ============ */
+  .numbers { flex:0 0 auto; display:flex; gap:10px; height:98px; }
+  .stat { flex:1; background:#141414; color:#F6F1E7; padding:8px 12px;
+    display:flex; flex-direction:column; justify-content:center; }
+  .stat .n { font-family:Georgia, serif; font-size:32px; font-weight:900;
+    color:#E8B93E; line-height:1; }
+  .stat .l { font-size:10.5px; line-height:1.3; margin-top:4px; }
+  .stat .s { font-size:9px; letter-spacing:1px; color:#B9B2A4; margin-top:2px; }
+  .chart { flex:1.35; background:#fff; border:1.5px solid #141414; padding:6px 10px 4px; }
+  .chart h3 { font-size:10px; letter-spacing:1.4px; font-weight:800; }
+  .chart h3 span { color:#A6192E; }
+
+  /* ============ MAIN GRID: LIST + MAP + SIDEBAR ============ */
+  .main { flex:1; display:flex; gap:10px; min-height:0; }
+  .list { flex:1.72; background:#fff; border:1.5px solid #141414; padding:7px 10px 5px;
+    display:flex; flex-direction:column; }
+  .list h3, .side h3 { font-size:11px; letter-spacing:2px; font-weight:800;
+    border-bottom:2px solid #141414; padding-bottom:3px; margin-bottom:2px; }
+  .list h3 span { color:#A6192E; }
+  .item { display:flex; gap:8px; padding:5px 0; border-bottom:1px solid #E3DCCB; }
+  .item:last-child { border-bottom:0; }
+  .num { flex:0 0 22px; height:22px; border-radius:50%; color:#fff; font-size:12px;
+    font-weight:800; display:flex; align-items:center; justify-content:center;
+    margin-top:1px; }
+  .item .txt { flex:1; min-width:0; }
+  .item h4 { font-size:12.5px; line-height:1.15; font-weight:800; }
+  .item h4 .badge { font-size:8.5px; letter-spacing:1px; color:#fff; padding:1px 5px;
+    margin-left:5px; vertical-align:1px; }
+  .item p { font-size:11px; line-height:1.3; color:#333; margin-top:1px; }
+  .item p b { color:#141414; }
+
+  .right { flex:1; display:flex; flex-direction:column; gap:10px; min-height:0; }
+  .mapbox { flex:0 0 auto; background:#fff; border:1.5px solid #141414; padding:6px 8px 4px; }
+  .mapbox h3 { font-size:11px; letter-spacing:2px; font-weight:800;
+    border-bottom:2px solid #141414; padding-bottom:3px; margin-bottom:2px; }
+  .mapbox h3 span { color:#A6192E; }
+  .mapbox svg { width:100%; height:auto; display:block; }
+  .mapbox p { font-size:9.5px; color:#555; line-height:1.3; }
+  .side { flex:1; background:#FFFDF6; border:1.5px solid #141414; padding:7px 10px 5px;
+    display:flex; flex-direction:column; min-height:0; }
+  .side h3 span { color:#A6192E; }
+  .sitem { display:flex; gap:7px; padding:2.6px 0; border-bottom:1px solid #EDE6D3;
+    font-size:10px; line-height:1.25; white-space:nowrap; overflow:hidden; }
+  .sitem span:not(.n):not(.b) { overflow:hidden; text-overflow:ellipsis; }
+  .sitem:last-child { border-bottom:0; }
+  .sitem .n { flex:0 0 18px; font-weight:800; color:#A6192E; }
+  .sitem .b { margin-left:auto; flex:0 0 auto; font-size:8px; font-weight:800;
+    letter-spacing:0.5px; color:#666; padding-top:2px; }
+
+  /* ============ FOOTER ============ */
+  footer { flex:0 0 auto; border-top:2px solid #141414; padding-top:4px;
+    font-size:9.5px; line-height:1.45; color:#444; }
+  footer b { color:#141414; letter-spacing:1px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <div class="dateblock">
+      <div class="dow">WEDNESDAY</div>
+      <div class="day">18</div>
+      <div class="mon">NOV · 2026</div>
+    </div>
+    <div class="masthead">
+      <h1>THE WORLD IN <em>ONE PAGE</em></h1>
+      <p>EVERYTHING THAT MATTERED TODAY — IN A SINGLE IMAGE</p>
+    </div>
+    <div class="edition">
+      <div><b>27 STORIES</b></div>
+      <div>6 CONTINENTS</div>
+      <div>11 TOP STORIES</div>
+    </div>
+  </header>
+
+  <!-- ============ SUBHEAD ============ -->
+  <div class="subhead">WEDNESDAY, 18 NOVEMBER 2026 &nbsp;·&nbsp; <span>GULF ESCALATION · APEC SUMMIT · KERCH BRIDGE HIT</span> &nbsp;·&nbsp; THE DAY, SUMMED UP</div>
+
+  <!-- ============ HERO ROW: 3 TOP STORIES ============ -->
+  <section class="heroes">
+    <article class="hero">
+      <svg viewBox="0 0 320 78" preserveAspectRatio="xMidYMid slice">
+        <rect width="320" height="78" fill="#1B2A4A"/>
+        <circle cx="258" cy="18" r="12" fill="#E8B93E"/>
+        <path d="M0 52 Q80 44 160 52 T320 50 V78 H0 Z" fill="#274B73"/>
+        <path d="M0 62 Q80 56 160 62 T320 60 V78 H0 Z" fill="#1B2A4A"/>
+        <path d="M28 58 L92 58 L84 70 L38 70 Z" fill="#0E1B2E"/>
+        <rect x="56" y="40" width="4" height="18" fill="#0E1B2E"/>
+        <path d="M60 40 L60 30 L74 40 Z" fill="#E8B93E"/>
+        <path d="M96 66 Q150 6 226 30" stroke="#E8543A" stroke-width="3" fill="none"/>
+        <path d="M222 22 L232 32 L220 34 Z" fill="#E8543A"/>
+        <circle cx="96" cy="66" r="4" fill="#E8B93E"/>
+      </svg>
+      <div class="hbody">
+        <span class="cat" style="background:#B42318">CONFLICT</span>
+        <h2>Gulf in flames: U.S. strikes Iran, Tehran hits back</h2>
+        <p>U.S. jets hit a Revolutionary Guards missile site on Qeshm Island; Iran answered with drone attacks on bases in Bahrain and Kuwait.</p>
+        <div class="src" style="color:#B42318">SOURCE: REUTERS</div>
+      </div>
+    </article>
+    <article class="hero">
+      <svg viewBox="0 0 320 78" preserveAspectRatio="xMidYMid slice">
+        <rect width="320" height="78" fill="#F2C14E"/>
+        <circle cx="160" cy="30" r="16" fill="#A6192E"/>
+        <g fill="#141414"><rect x="28" y="34" width="26" height="44"/><rect x="62" y="22" width="22" height="56"/><rect x="92" y="40" width="30" height="38"/><rect x="196" y="28" width="24" height="50"/><rect x="228" y="42" width="30" height="36"/><rect x="266" y="18" width="20" height="60"/></g>
+        <g fill="#F6F1E7"><rect x="66" y="28" width="4" height="4"/><rect x="76" y="36" width="4" height="4"/><rect x="66" y="46" width="4" height="4"/><rect x="200" y="34" width="4" height="4"/><rect x="210" y="44" width="4" height="4"/><rect x="270" y="24" width="4" height="4"/><rect x="270" y="34" width="4" height="4"/></g>
+        <rect x="0" y="72" width="320" height="6" fill="#A6192E"/>
+      </svg>
+      <div class="hbody">
+        <span class="cat" style="background:#184A7A">DIPLOMACY</span>
+        <h2>Xi and Putin set the stage for Trump</h2>
+        <p>China's Xi and Russia's Putin opened the APEC summit in Shenzhen, denouncing protectionism and sanctions a day before a rare three-way meeting with Trump.</p>
+        <div class="src" style="color:#184A7A">SOURCE: AFP</div>
+      </div>
+    </article>
+    <article class="hero">
+      <svg viewBox="0 0 320 78" preserveAspectRatio="xMidYMid slice">
+        <rect width="320" height="78" fill="#7FA8C9"/>
+        <path d="M0 58 Q80 50 160 58 T320 56 V78 H0 Z" fill="#2E5E86"/>
+        <path d="M0 66 Q80 60 160 66 T320 64 V78 H0 Z" fill="#1B3A5C"/>
+        <g stroke="#141414" stroke-width="5"><line x1="18" y1="46" x2="150" y2="46"/><line x1="176" y1="46" x2="302" y2="46"/></g>
+        <path d="M150 46 Q163 66 176 46" stroke="#141414" stroke-width="5" fill="none"/>
+        <g stroke="#141414" stroke-width="3"><line x1="40" y1="46" x2="40" y2="18"/><line x1="90" y1="46" x2="90" y2="14"/><line x1="230" y1="46" x2="230" y2="18"/><line x1="280" y1="46" x2="280" y2="14"/></g>
+        <path d="M96 30 L120 22 L112 40 Z" fill="#E8543A"/>
+        <circle cx="120" cy="22" r="3" fill="#E8B93E"/>
+      </svg>
+      <div class="hbody">
+        <span class="cat" style="background:#B42318">CONFLICT</span>
+        <h2>Kerch Bridge hit — an arch falls</h2>
+        <p>Ukrainian drones and missiles struck the bridge to Crimea for a second day; one of its two arches collapsed into the strait.</p>
+        <div class="src" style="color:#B42318">SOURCE: REUTERS</div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ NUMBERS STRIP ============ -->
+  <section class="numbers">
+    <div class="stat"><div class="n">56–44</div><div class="l">Democrats' new U.S. Senate majority after the Alaska win</div><div class="s">SOURCE: AP</div></div>
+    <div class="stat"><div class="n">11,376</div><div class="l">Confirmed Ebola cases in DR Congo — the 2nd-largest outbreak ever</div><div class="s">SOURCE: WHO</div></div>
+    <div class="stat"><div class="n">$115.84bn</div><div class="l">Nvidia's quarterly revenue — doubled in a year</div><div class="s">SOURCE: REUTERS</div></div>
+    <div class="chart">
+      <h3>NVIDIA REVENUE, $BN <span>· NVIDIA RELEASE</span></h3>
+      <svg viewBox="0 0 300 66" preserveAspectRatio="none">
+        <line x1="30" y1="54" x2="290" y2="54" stroke="#141414" stroke-width="1.5"/>
+        <line x1="30" y1="8" x2="30" y2="54" stroke="#141414" stroke-width="1.5"/>
+        <polyline points="52,42 150,26 268,14" fill="none" stroke="#A6192E" stroke-width="3"/>
+        <circle cx="52" cy="42" r="4" fill="#A6192E"/><circle cx="150" cy="26" r="4" fill="#A6192E"/><circle cx="268" cy="14" r="4" fill="#A6192E"/>
+        <text x="52" y="35" font-size="9" font-weight="700" text-anchor="middle" fill="#141414">57.0</text>
+        <text x="150" y="19" font-size="9" font-weight="700" text-anchor="middle" fill="#141414">96.2</text>
+        <text x="268" y="7" font-size="9" font-weight="700" text-anchor="middle" fill="#141414">115.8</text>
+        <text x="52" y="64" font-size="8" fill="#666" text-anchor="middle">Q3 FY26</text>
+        <text x="150" y="64" font-size="8" fill="#666" text-anchor="middle">Q2 FY27</text>
+        <text x="268" y="64" font-size="8" fill="#666" text-anchor="middle">Q3 FY27</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ MAIN GRID ============ -->
+  <div class="main">
+    <!-- NUMBERED LIST 1-11 -->
+    <section class="list">
+      <h3>THE DAY'S TOP STORIES <span>· 1–11</span></h3>
+      <div class="item"><div class="num" style="background:#B42318">1</div><div class="txt"><h4>Gulf strikes widen<span class="badge" style="background:#B42318">REUTERS</span></h4><p>U.S. jets hit an IRGC missile site on Qeshm Island; Iran's drones targeted bases in Bahrain and Kuwait.</p></div></div>
+      <div class="item"><div class="num" style="background:#184A7A">2</div><div class="txt"><h4>Xi hosts Putin at APEC<span class="badge" style="background:#184A7A">AFP</span></h4><p>The two leaders opened the Shenzhen summit and hit out at protectionism and Western sanctions ahead of Thursday's Trump talks.</p></div></div>
+      <div class="item"><div class="num" style="background:#B42318">3</div><div class="txt"><h4>Kerch Bridge arch collapses<span class="badge" style="background:#B42318">REUTERS</span></h4><p>Ukrainian drones and missiles struck the Crimea link again; one arch fell into the strait.</p></div></div>
+      <div class="item"><div class="num" style="background:#6B3FA0">4</div><div class="txt"><h4>Democrats take the Senate 56–44<span class="badge" style="background:#6B3FA0">AP</span></h4><p>Mary Peltola beat Dan Sullivan in Alaska, the party's ninth Senate flip of the midterms.</p></div></div>
+      <div class="item"><div class="num" style="background:#0E7C6B">5</div><div class="txt"><h4>Ebola passes 11,000 cases<span class="badge" style="background:#0E7C6B">WHO</span></h4><p>The DRC outbreak, now the second-largest on record, remains a global emergency; children bear the worst toll.</p></div></div>
+      <div class="item"><div class="num" style="background:#0E7C6B">6</div><div class="txt"><h4>U.S. loses measles-free status<span class="badge" style="background:#0E7C6B">PAHO</span></h4><p>5,412 cases in 2026, the most since 1991, end 26 years of elimination status.</p></div></div>
+      <div class="item"><div class="num" style="background:#B45309">7</div><div class="txt"><h4>Nvidia doubles revenue<span class="badge" style="background:#B45309">REUTERS</span></h4><p>$115.84bn in a quarter, up 103%; the board rules out Jensen Huang's return as CEO.</p></div></div>
+      <div class="item"><div class="num" style="background:#5B4DBC">8</div><div class="txt"><h4>Voyager 1, one light-day out<span class="badge" style="background:#5B4DBC">NASA</span></h4><p>The probe, launched in 1977, is the first human-made object a full day's light-travel from Earth.</p></div></div>
+      <div class="item"><div class="num" style="background:#2E7D32">9</div><div class="txt"><h4>COP31 talks stall in Antalya<span class="badge" style="background:#2E7D32">CARBON BRIEF</span></h4><p>Agriculture negotiations collapsed and divisions over fossil fuels and finance persist.</p></div></div>
+      <div class="item"><div class="num" style="background:#C2410C">10</div><div class="txt"><h4>Russian military plane crashes<span class="badge" style="background:#C2410C">CNN</span></h4><p>An An-12 went down in Siberia, killing all 19 aboard, Russia's Defence Ministry said.</p></div></div>
+      <div class="item"><div class="num" style="background:#B42318">11</div><div class="txt"><h4>Gaza's cold kills in tents<span class="badge" style="background:#B42318">WHO</span></h4><p>WHO counts 950,000 displaced Palestinians on flood-prone ground as winter bites.</p></div></div>
+    </section>
+
+    <!-- RIGHT COLUMN: MAP + SIDEBAR -->
+    <div class="right">
+      <div class="mapbox">
+        <h3>WHERE IT HAPPENED <span>· WORLD MAP</span></h3>
+        <svg viewBox="0 0 340 152">
+          <rect width="340" height="152" fill="#EFE8D6"/>
+          <g fill="#D5C9A8" stroke="#B9AC8F" stroke-width="1">
+            <path d="M16 58 L52 30 L104 20 L148 28 L164 46 L150 66 L122 74 L98 92 L82 112 L62 96 L42 80 L20 70 Z"/>
+            <path d="M104 116 L134 110 L156 128 L150 146 L130 150 L114 140 L104 128 Z"/>
+            <path d="M176 56 L208 42 L234 48 L240 62 L216 72 L192 70 L178 62 Z"/>
+            <path d="M186 86 L224 80 L246 96 L240 126 L220 148 L200 138 L188 110 Z"/>
+            <path d="M246 42 L318 30 L334 54 L324 86 L300 100 L272 94 L252 74 L240 60 Z"/>
+            <path d="M284 136 L318 130 L330 146 L310 150 L288 148 Z"/>
+          </g>
+          <g font-family="Arial, sans-serif" font-size="10" font-weight="800" fill="#fff" text-anchor="middle">
+            <circle cx="262" cy="80" r="9" fill="#B42318"/><text x="262" y="84">1</text>
+            <circle cx="308" cy="90" r="9" fill="#184A7A"/><text x="308" y="94">2</text>
+            <circle cx="238" cy="52" r="9" fill="#B42318"/><text x="238" y="56">3</text>
+            <circle cx="38" cy="24" r="9" fill="#6B3FA0"/><text x="38" y="28">4</text>
+            <circle cx="206" cy="106" r="9" fill="#0E7C6B"/><text x="206" y="110">5</text>
+            <circle cx="96" cy="52" r="9" fill="#0E7C6B"/><text x="96" y="56">6</text>
+            <circle cx="70" cy="58" r="9" fill="#B45309"/><text x="70" y="62">7</text>
+            <circle cx="58" cy="80" r="9" fill="#5B4DBC"/><text x="58" y="84">8</text>
+            <circle cx="222" cy="60" r="9" fill="#2E7D32"/><text x="222" y="64">9</text>
+            <circle cx="286" cy="36" r="9" fill="#C2410C"/><text x="286" y="40">10</text>
+            <circle cx="244" cy="76" r="9" fill="#B42318"/><text x="244" y="80">11</text>
+          </g>
+        </svg>
+        <p>Dots match the list at left. 8 marks NASA's JPL, home of Voyager.</p>
+      </div>
+      <section class="side">
+        <h3>ALSO ON 18 NOV 2026 <span>· 12–27</span></h3>
+        <div class="sitem"><span class="n">12</span><span>Quad leaders meet in Manila.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">13</span><span>Trump meets Canada's Carney at APEC.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">14</span><span>UK sanctions 8 firms over settlements.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">15</span><span>Knesset elects Matan Kahana as speaker.</span><span class="b">AP</span></div>
+        <div class="sitem"><span class="n">16</span><span>Ethiopia &amp; Eritrea mass troops on border.</span><span class="b">AP</span></div>
+        <div class="sitem"><span class="n">17</span><span>Cyclone Xavier hits N. Cook Islands.</span><span class="b">AP</span></div>
+        <div class="sitem"><span class="n">18</span><span>Fiji declares national disaster: drought.</span><span class="b">AP</span></div>
+        <div class="sitem"><span class="n">19</span><span>Australian jobless rate jumps to 4.9%.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">20</span><span>Bangladesh unrest: clashes, arson, strikes.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">21</span><span>Boiler blast injures 10 at Klabin plant.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">22</span><span>Argentina thrash Costa Rica 7–0.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">23</span><span>Five more nations seal World Cup spots.</span><span class="b">BBC</span></div>
+        <div class="sitem"><span class="n">24</span><span>OpenAI launches GPT-6.2 Astra and Sol.</span><span class="b">SILICONANGLE</span></div>
+        <div class="sitem"><span class="n">25</span><span>Pope Leo ends S. America trip; 2.5m at Mass.</span><span class="b">AP</span></div>
+        <div class="sitem"><span class="n">26</span><span>Costa Rican journalist shot dead.</span><span class="b">REUTERS</span></div>
+        <div class="sitem"><span class="n">27</span><span>Germany gives $300m for Ukraine missiles.</span><span class="b">REUTERS</span></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer><b>SOURCES:</b> Reuters · AP · AFP · BBC · CNN · WHO · PAHO · NASA · Carbon Brief · Zacks · SiliconAngle · UN News — every story first reported or updated on Wednesday, 18 November 2026. Figures as reported by the outlet named. Compiled 19 November 2026.</footer>
+</div>
+</body>
+</html>
